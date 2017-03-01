@@ -9,6 +9,7 @@ export interface Har {
 }
 /**
  * This object (`log`) represents the root of exported data.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#log
  */
 export interface Log {
@@ -25,9 +26,14 @@ export interface Log {
     /**
      * List of all exported (tracked) pages.
      *
-     * _Leave out this field if the application does not support grouping by pages._
+     * _Leave out this field if the application
+     * does not support grouping by pages._
      *
-     * There is one `<page>` object for every exported web page and one `<entry>` object for every HTTP request. In case when an HTTP trace tool isn't able to group requests by a page, the `<pages>` object is empty and individual requests doesn't have a parent page.
+     * There is one `<page>` object for every exported web page and one
+     * `<entry>` object for every HTTP request.
+     * In case when an HTTP trace tool isn't able to group requests by a page,
+     * the `<pages>` object is empty and individual requests doesn't have a
+     * parent page.
      */
     pages?: Page[];
     /** List of all exported (tracked) requests. */
@@ -37,7 +43,9 @@ export interface Log {
 }
 /**
  * Infos about application/browser used to export the log.
+ *
  * `Creator` and `Browser` objects share the same structure.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#creator
  */
 export interface Creator {
@@ -50,7 +58,9 @@ export interface Creator {
 }
 /**
  * Infos about application/browser used to export the log.
+ *
  * `Browser` and `Creator` objects share the same structure.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#browser
  */
 export interface Browser {
@@ -63,14 +73,20 @@ export interface Browser {
 }
 /**
  * This object represents list of exported pages.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#pages
  */
 export interface Page {
-    /** Date and time stamp for the beginning of the page load (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`,
+    /** Date and time stamp for the beginning of the page load
+     *
+     * (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`,
      * e.g. `2009-07-24T19:20:30.45+01:00`).
      */
     startedDateTime: string;
-    /** Unique identifier of a page within the `<log>` (HAR doc). Entries use it to refer the parent page. */
+    /**
+     * Unique identifier of a page within the `<log>` (HAR doc).
+     * Entries use it to refer the parent page.
+     */
     id: string;
     /** Page title. */
     title: string;
@@ -235,17 +251,25 @@ export interface Page {
     _visualComplete?: number;
 }
 /**
- * This object describes timings for various events (states) fired during the page load.
+ * This object describes timings for various events (states) fired during the
+ * page load.
+ *
  * All times are specified in milliseconds.
+ *
  * If a time info is not available appropriate field is set to `-1`.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#pageTimings
  */
 export interface PageTiming {
-    /** Content of the page loaded. Number of milliseconds since page load started (`page.startedDateTime`).
+    /** Content of the page loaded. Number of milliseconds since page load
+     * started (`page.startedDateTime`).
+     *
      * Use `-1` if the timing does not apply to the current request.
      */
     onContentLoad?: number;
-    /** Page is loaded (`onLoad` event fired). Number of milliseconds since page load started (`page.startedDateTime`).
+    /** Page is loaded (`onLoad` event fired). Number of milliseconds since
+     * page load started (`page.startedDateTime`).
+     *
      * Use `-1` if the timing does not apply to the current request.
      */
     onLoad?: number;
@@ -254,18 +278,31 @@ export interface PageTiming {
     _startRender?: number;
 }
 /**
- * This object represents an array with all exported HTTP requests. Sorting entries by `startedDateTime`
- * (starting from the oldest) is preferred way how to export data since it can make importing faster.
- * However the reader application should always make sure the array is sorted (if required for the import).
+ * This object represents an array with all exported HTTP requests. Sorting
+ * entries by `startedDateTime` (starting from the oldest) is preferred way how
+ * to export data since it can make importing faster.
+ * However the reader application should always make sure the array is sorted
+ * (if required for the import).
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#entries
  */
 export interface Entry {
-    /** Reference to the parent page. Leave out this field if the application does not support grouping by pages. */
+    /**
+     * Reference to the parent page. Leave out this field if the application
+     * does not support grouping by pages.
+     */
     pageref?: string;
-    /** Date and time stamp of the request start (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`). */
+    /**
+     * Date and time stamp of the request start
+     *
+     * (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`).
+     */
     startedDateTime: string;
-    /** Total elapsed time of the request in milliseconds.
-     * This is the sum of all timings available in the timings object (i.e. not including `-1` values).
+    /**
+     * Total elapsed time of the request in milliseconds.
+     *
+     * This is the sum of all timings available in the timings object
+     * (i.e. not including `-1` values).
      */
     time: number;
     /** Detailed info about the request. */
@@ -276,13 +313,21 @@ export interface Entry {
     cache: Cache;
     /** Detailed timing info about request/response round trip. */
     timings: Timings;
-    /** IP address of the server that was connected (result of DNS resolution). */
+    /**
+     * IP address of the server that was connected
+     * (result of DNS resolution).
+     */
     serverIPAddress?: string;
-    /**  Unique ID of the parent TCP/IP connection, can be the client or server port number.
+    /**
+     * Unique ID of the parent TCP/IP connection, can be the client or server
+     * port number.
+     *
      * Note that a port number doesn't have to be unique identifier
      * in cases where the port is shared for more connections.
-     * If the port isn't available for the application, any other unique connection ID can be used instead
-     * (e.g. connection index). Leave out this field if the application doesn't support this info.
+     *
+     * If the port isn't available for the application, any other unique
+     * connection ID can be used instead (e.g. connection index). Leave out
+     * this field if the application doesn't support this info.
      */
     connection?: string;
     /**  A comment provided by the user or the application */
@@ -446,6 +491,7 @@ export interface Entry {
 }
 /**
  * This object contains detailed info about performed request.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#request
  */
 export interface Request {
@@ -463,17 +509,25 @@ export interface Request {
     queryString: QueryString[];
     /** Posted data info. */
     postData?: PostData;
-    /** Total number of bytes from the start of the HTTP request message until (and including)
-     * the double CRLF before the body. Set to `-1` if the info is not available.
+    /**
+     * Total number of bytes from the start of the HTTP request message until
+     * (and including) the double CRLF before the body.
+     *
+     * Set to `-1` if the info is not available.
      */
     headersSize: number;
-    /** Size of the request body (POST data payload) in bytes. Set to `-1` if the info is not available. */
+    /**
+     * Size of the request body (POST data payload) in bytes.
+     *
+     * Set to `-1` if the info is not available.
+     */
     bodySize: number;
     /**  A comment provided by the user or the application */
     comment?: string;
 }
 /**
  * This object contains detailed info about the response.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#response
  */
 export interface Response {
@@ -491,16 +545,22 @@ export interface Response {
     content: Content;
     /** Redirection target URL from the Location response header. */
     redirectURL: string;
-    /** Total number of bytes from the start of the HTTP response message until (and including)
-     * the double CRLF before the body. Set to `-1` if the info is not available.
+    /**
+     * Total number of bytes from the start of the HTTP response message until
+     * (and including) the double CRLF before the body.
      *
-     * _The size of received response-headers is computed only from headers that are really received from the server.
-     * Additional headers appended by the browser are not included in this number,
-     * but they appear in the list of header objects._
+     * Set to `-1` if the info is not available.
+     *
+     * _The size of received response-headers is computed only from headers
+     * that are really received from the server. Additional headers appended by
+     * the browser are not included in this number, but they appear in the list
+     * of header objects._
      */
     headersSize: number;
-    /** Size of the received response body in bytes. Set to zero in case of responses coming from the cache (`304`).
-     * Set to `-1` if the info is not available.
+    /** Size of the received response body in bytes.
+     *
+     * - Set to zero in case of responses coming from the cache (`304`).
+     * - Set to `-1` if the info is not available.
      */
     bodySize: number;
     /**  A comment provided by the user or the application */
@@ -509,7 +569,9 @@ export interface Response {
     _transferSize?: number;
 }
 /**
- * This object contains list of all cookies (used in `request` and `response` objects).
+ * This object contains list of all cookies (used in `request` and `response`
+ * objects).
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#cookies
  */
 export interface Cookie {
@@ -521,7 +583,11 @@ export interface Cookie {
     path?: string;
     /** The host of the cookie. */
     domain?: string;
-    /** Cookie expiration time. (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`, e.g. `2009-07-24T19:20:30.123+02:00`). */
+    /**
+     * Cookie expiration time.
+     * (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`,
+     * e.g. `2009-07-24T19:20:30.123+02:00`).
+     */
     expires?: string | Date | null;
     /** Set to true if the cookie is HTTP only, false otherwise. */
     httpOnly?: boolean;
@@ -533,6 +599,7 @@ export interface Cookie {
 
 /**
  * This object represents a headers (used in `request` and `response` objects).
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#headers
  */
 export interface Header {
@@ -542,7 +609,9 @@ export interface Header {
     comment?: string;
 }
 /**
- *  This object represents a parameter & value parsed from a query string, if any (embedded in `request` object).
+ * This object represents a parameter & value parsed from a query string,
+ * if any (embedded in `request` object).
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#queryString
  */
 export interface QueryString {
@@ -553,6 +622,7 @@ export interface QueryString {
 }
 /**
  * This object describes posted data, if any (embedded in `request` object).
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#postData
  */
 export interface PostData {
@@ -573,6 +643,7 @@ export interface PostData {
 }
 /**
  * List of posted parameters, if any (embedded in `postData` object).
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#params
  */
 export interface Param {
@@ -588,30 +659,48 @@ export interface Param {
     comment?: string;
 }
 /**
- * This object describes details about response content (embedded in `response` object).
+ * This object describes details about response content
+ * (embedded in `response` object).
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#content
  */
 export interface Content {
-    /** Length of the returned content in bytes.
+    /**
+     * Length of the returned content in bytes.
      *
-     * Should be equal to `response.bodySize` if there is no compression and bigger when the content has been compressed.
+     * Should be equal to `response.bodySize` if there is no compression and
+     * bigger when the content has been compressed.
      */
     size: number;
-    /** Number of bytes saved. Leave out this field if the information is not available. */
+    /**
+     * Number of bytes saved. Leave out this field if the information is not
+     * available.
+     */
     compression?: number;
-    /** MIME type of the response text (value of the Content-Type response header).
+    /**
+     * MIME type of the response text (value of the Content-Type response
+     * header).
+     *
      * The charset attribute of the MIME type is included (if available).
      */
     mimeType: string;
-    /** Response body sent from the server or loaded from the browser cache.
+    /**
+     * Response body sent from the server or loaded from the browser cache.
+     *
      * This field is populated with textual content only.
+     *
      * The text field is either HTTP decoded text or a encoded (e.g. `base64`)
-     * representation of the response body. Leave out this field if the information is not available.
+     * representation of the response body.
+     *
+     * Leave out this field if the information is not available.
      */
     text?: string;
-    /**  Encoding used for response text field e.g `base64`.
-     * Leave out this field if the text field is HTTP decoded (decompressed & unchunked),
-     * than trans-coded from its original character set into UTF-8.
+    /**
+     * Encoding used for response text field e.g `base64`.
+     *
+     * Leave out this field if the text field is HTTP decoded
+     * (decompressed & unchunked), than trans-coded from its original character
+     * set into UTF-8.
      */
     encoding?: string;
     /**  A comment provided by the user or the application */
@@ -619,12 +708,21 @@ export interface Content {
 }
 /**
  * This objects contains info about a request coming from browser cache.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#cache
  */
 export interface Cache {
-    /**  State of a cache entry before the request. Leave out this field if the information is not available. */
+    /**
+     * State of a cache entry before the request.
+     *
+     * Leave out this field if the information is not available.
+     */
     beforeRequest?: CacheDetails;
-    /** State of a cache entry after the request. Leave out this field if the information is not available. */
+    /**
+     * State of a cache entry after the request.
+     *
+     * Leave out this field if the information is not available.
+     */
     afterRequest?: CacheDetails;
     /**  A comment provided by the user or the application */
     comment?: string;
@@ -632,12 +730,14 @@ export interface Cache {
 export interface CacheDetails {
     /** Expiration time of the cache entry.
      *
-     * _(Format not documente but assumingly ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`)_
+     * _(Format not documente but assumingly ISO 8601 -
+     * `YYYY-MM-DDThh:mm:ss.sTZD`)_
      */
     expires?: string;
     /** The last time the cache entry was opened.
      *    *
-     * _(Format not documente but assumingly ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`)_
+     * _(Format not documente but assumingly ISO 8601 -
+     * `YYYY-MM-DDThh:mm:ss.sTZD`)_
      */
     lastAccess: string;
     /** Etag */
@@ -648,37 +748,55 @@ export interface CacheDetails {
     comment?: string;
 }
 /**
- * This object describes various phases within request-response round trip. All times are specified in milliseconds.
+ * This object describes various phases within request-response round trip.
+ *
+ * All times are specified in milliseconds.
+ *
  * http://www.softwareishard.com/blog/har-12-spec/#timings
  */
 export interface Timings {
-    /**  Time spent in a queue waiting for a network connection.
+    /**
+     * Time spent in a queue waiting for a network connection.
+     *
      * Use `-1` if the timing does not apply to the current request.
      */
     blocked?: number;
-    /**  DNS resolution time. The time required to resolve a host name.
+    /**
+     * DNS resolution time. The time required to resolve a host name.
+     *
      * Use `-1` if the timing does not apply to the current request.
      */
     dns?: number;
-    /** Time required to create TCP connection. Use `-1` if the timing does not apply to the current request. */
+    /**
+     * Time required to create TCP connection.
+     *
+     * Use `-1` if the timing does not apply to the current request.
+     */
     connect?: number;
-    /** Time required to send HTTP request to the server.
+    /**
+     * Time required to send HTTP request to the server.
      *
      * _Not optional and must have non-negative values._
      */
     send?: number;
-    /** Waiting for a response from the server.
+    /**
+     * Waiting for a response from the server.
      *
      * _Not optional and must have non-negative values._
      */
     wait: number;
-    /** Time required to read entire response from the server (or cache).
+    /**
+     * Time required to read entire response from the server (or cache).
      *
      * _Not optional and must have non-negative values._
      */
     receive: number;
-    /** Time required for SSL/TLS negotiation. If this field is defined then the time is also included in the
-     * connect field (to ensure backward compatibility with HAR 1.1).
+    /**
+     * Time required for SSL/TLS negotiation.
+     *
+     * If this field is defined then the time is also included in the connect
+     * field (to ensure backward compatibility with HAR 1.1).
+     *
      * Use `-1` if the timing does not apply to the current request.
      */
     ssl?: number;
