@@ -1,6 +1,23 @@
 # har-format-ts-declaration
 TypeScript Definition (aka typing) for HAR (HTTP Archive) file format version 1.2.
 
+# Usage
+
+## Installation
+The typings are on NPM, so you can simply:
+```
+npm install --save @types/har-format
+```
+
+## Example usage
+```Typescript
+import { Har } from "har-format";
+
+function getNonRedirectEntries(file: Har){
+    return file.log.entries.filter(e => !e.response.redirectURL);
+}
+```
+
 Based on the HAR typings used in [PerfCascade](https://github.com/micmro/PerfCascade)
 
 ## Specs and resources
