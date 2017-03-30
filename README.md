@@ -1,5 +1,5 @@
 # har-format-ts-declaration
-TypeScript Definition (aka typing) for HAR (HTTP Archive) file format version 1.2.
+TypeScript definitions (aka typings) for the HAR (HTTP Archive) file format (version 1.2).
 
 # Usage
 
@@ -18,7 +18,7 @@ function getNonRedirectEntries(file: Har){
 }
 ```
 
-Based on the HAR typings used in [PerfCascade](https://github.com/micmro/PerfCascade)
+Originally based on the HAR typings created for [PerfCascade](https://github.com/micmro/PerfCascade).
 
 ## Specs and resources
 - [W3C HAR Spec](https://w3c.github.io/web-performance/specs/HAR/Overview.html)
