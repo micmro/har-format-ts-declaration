@@ -1,4 +1,6 @@
 # har-format-ts-declaration
+[![npm version](https://img.shields.io/npm/v/@types/har-format.svg?style=flat-square)](https://www.npmjs.com/package/@types/har-format) 
+
 TypeScript definitions (aka typings) for the HAR (HTTP Archive) file format (version 1.2).
 
 # Usage
